@@ -1,37 +1,28 @@
 package net.marco27.api.filesystemapi.store;
 
-import net.marco27.api.base.oracle.OracleServiceImpl;
-import net.marco27.api.filesystemapi.configuration.ApplicationConfiguration;
-import net.marco27.api.filesystemapi.domain.FileStructure;
-import net.marco27.api.filesystemapi.repository.FileStructureCrudRepository;
-import net.marco27.api.filesystemapi.repository.FileStructureJpaRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import net.marco27.api.base.oracle.OracleServiceImpl;
+import net.marco27.api.filesystemapi.domain.FileStructure;
+import net.marco27.api.filesystemapi.repository.FileStructureCrudRepository;
+
 @Service
 public class FileSystemApiStoreImpl extends OracleServiceImpl implements FileSystemApiStore {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemApiStoreImpl.class);
 
-    private static final String CQL_SELECT_BY_PATH = "SELECT * FROM file_structure WHERE path = '%s'";
-
-    private ApplicationConfiguration applicationConfiguration;
-    private FileStructureJpaRepository fileStructureJpaRepository;
     private FileStructureCrudRepository fileStructureCrudRepository;
 
-    public FileSystemApiStoreImpl(@Autowired final ApplicationConfiguration applicationConfiguration,
-                                  @Autowired FileStructureJpaRepository fileStructureJpaRepository,
-                                  @Autowired FileStructureCrudRepository fileStructureCrudRepository) {
-        this.applicationConfiguration = applicationConfiguration;
-        this.fileStructureJpaRepository = fileStructureJpaRepository;
+    public FileSystemApiStoreImpl(@Autowired FileStructureCrudRepository fileStructureCrudRepository) {
         this.fileStructureCrudRepository = fileStructureCrudRepository;
     }
 
@@ -47,29 +38,17 @@ public class FileSystemApiStoreImpl extends OracleServiceImpl implements FileSys
     }
 
     @Override
-    public FileStructure savePathStructure(final FileStructure fileStructure) {
+    public FileStructure saveFileStructure(final FileStructure fileStructure) {
         return fileStructureCrudRepository.save(fileStructure);
     }
 
     @Override
-    public void deletePathStructure(final FileStructure fileStructure) {
+    public void deleteFileStructure(final FileStructure fileStructure) {
         fileStructureCrudRepository.delete(fileStructure);
     }
 
     @Override
     public FileStructure loadFileStructure(final String path) {
-        /*
-        try (Cluster cluster = getCassandraCluster(applicationConfiguration.getCassandraAddresses())) {
-            try (Session session = getCassandraSession(cluster, applicationConfiguration.getCassandraKeyspace())) {
-                String query = String.format(CQL_SELECT_BY_PATH, path);
-                ResultSet resultSet = session.execute(query);
-                for (final Row row : resultSet) {
-                    String rowPath = row.getString("path");
-                    return new FileStructure.Builder(rowPath).build();
-                }
-            }
-        }
-        */
         FileStructure result = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
