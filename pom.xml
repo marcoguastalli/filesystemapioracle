@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.2.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
     </parent>
 
     <properties>
@@ -65,17 +65,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <!-- In-Memory DB -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
         </dependency>
         <!-- apache commons -->
         <dependency>
