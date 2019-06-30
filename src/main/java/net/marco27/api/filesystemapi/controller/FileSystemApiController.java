@@ -56,13 +56,13 @@ public class FileSystemApiController {
     }
 
     @GetMapping("/findFileStructureOracleById/{path}")
-    public ResponseEntity<FileStructure> getPathStructure(@Valid @PathVariable final String path) {
+    public ResponseEntity<FileStructure> findFileStructureOracleById(@Valid @PathVariable final String path) {
         final FileStructure result = fileSystemApiStore.findFileStructureById(validatePath(path));
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/findFileStructureOracleByPath/{path}")
-    public ResponseEntity<FileStructure> findPathStructure(@Valid @PathVariable final String path) {
+    public ResponseEntity<FileStructure> findFileStructureOracleByPath(@Valid @PathVariable final String path) {
         FileStructure result = fileSystemApiStore.findFileStructureByPath(validatePath(path));
         if (result == null) {
             return ResponseEntity.noContent().build();
@@ -70,8 +70,8 @@ public class FileSystemApiController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/deletePathStructureOracle/{path}")
-    public ResponseEntity<JsonSuccess> deletePathStructureOracle(@Valid @PathVariable final String path) {
+    @DeleteMapping("/deleteFileStructureOracle/{path}")
+    public ResponseEntity<JsonSuccess> deleteFileStructureOracle(@Valid @PathVariable final String path) {
         FileStructure fileStructure = fileSystemApiStore.findFileStructureByPath(validatePath(path));
         if (fileStructure != null) {
             fileSystemApiStore.deleteFileStructure(fileStructure);
@@ -81,7 +81,7 @@ public class FileSystemApiController {
     }
 
     @GetMapping("/saveFileStructureOracle/{path}")
-    public ResponseEntity<FileStructure> storePathStructure(@Valid @PathVariable final String path) {
+    public ResponseEntity<FileStructure> saveFileStructureOracle(@Valid @PathVariable final String path) {
         final String validPath = validatePath(path);
         FileStructure result = fileSystemApiStore.findFileStructureById(validatePath(validPath));
         if (result == null) {
@@ -93,8 +93,8 @@ public class FileSystemApiController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/loadFileStructure/{path}")
-    public ResponseEntity<FileStructure> loadFileStructure(@Valid @PathVariable final String path) {
+    @GetMapping("/loadFileStructureOracle/{path}")
+    public ResponseEntity<FileStructure> loadFileStructureOracle(@Valid @PathVariable final String path) {
         final String validPath = validatePath(path);
         FileStructure result = fileSystemApiStore.loadFileStructure(validatePath(validPath));
         return ResponseEntity.ok(result);
