@@ -34,12 +34,12 @@ http://localhost:8090/findFileStructureOracleByPath/Users%2Fmarcoguastalli%2Ftem
 http://localhost:8090/saveFileStructureOracle/Users%2Fmarco27%2Ftemp
 http://localhost:8090/saveFileStructureOracle/Users%2Fmarcoguastalli%2Ftemp
 
-##### DELETE deletePathStructureOracle
-http://localhost:8090/deletePathStructureOracle/Users%2Fmarco27%2Ftemp
-http://localhost:8090/deletePathStructureOracle/Users%2Fmarcoguastalli%2Ftemp
-curl -X DELETE --header "Accept: */*" "http://localhost:8090/deletePathStructureOracle/Users%2Fmarcoguastalli%2Ftemp"
-curl -X DELETE --header "Accept: */*" "http://localhost:8090/deletePathStructureOracle/Users%2Fmarco27%2Ftemp"
+##### DELETE deleteFileStructureOracle
+http://localhost:8090/deleteFileStructureOracle/Users%2Fmarco27%2Ftemp
+http://localhost:8090/deleteFileStructureOracle/Users%2Fmarcoguastalli%2Ftemp
+curl -X DELETE --header "Accept: */*" "http://localhost:8090/deleteFileStructureOracle/Users%2Fmarcoguastalli%2Ftemp"
+curl -X DELETE --header "Accept: */*" "http://localhost:8090/deleteFileStructureOracle/Users%2Fmarco27%2Ftemp"
 
-##### GET loadFileStructure
-http://localhost:8090/loadFileStructure/Users%2Fmarco27%2Ftemp
-http://localhost:8090/loadFileStructure/Users%2Fmarcoguastalli%2Ftemp
+##### GET loadFileStructureOracle
+http://localhost:8090/loadFileStructureOracle/Users%2Fmarco27%2Ftemp
+http://localhost:8090/loadFileStructureOracle/Users%2Fmarcoguastalli%2Ftemp
