@@ -6,50 +6,53 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.marco27.api.base.oracle.OracleServiceImpl;
 import net.marco27.api.filesystemapi.domain.FileStructure;
 import net.marco27.api.filesystemapi.repository.FileStructureCrudRepository;
 
 @Service
-public class FileSystemApiStoreImpl extends OracleServiceImpl implements FileSystemApiStore {
+public class FileSystemApiStoreImpl implements FileSystemApiStore {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemApiStoreImpl.class);
 
+    @Autowired
+    protected DataSource dataSource;
+
     private FileStructureCrudRepository fileStructureCrudRepository;
 
-    public FileSystemApiStoreImpl(@Autowired FileStructureCrudRepository fileStructureCrudRepository) {
+    public FileSystemApiStoreImpl(@Autowired final FileStructureCrudRepository fileStructureCrudRepository) {
         this.fileStructureCrudRepository = fileStructureCrudRepository;
     }
 
     @Override
     public FileStructure findFileStructureById(final String path) {
-        final Optional<FileStructure> result = fileStructureCrudRepository.findById(path);
+        final Optional<FileStructure> result = this.fileStructureCrudRepository.findById(path);
         return result.orElse(null);
     }
 
     @Override
     public FileStructure findFileStructureByPath(final String path) {
-        return fileStructureCrudRepository.findByPath(path);
+        return this.fileStructureCrudRepository.findByPath(path);
     }
 
     @Override
     public FileStructure saveFileStructure(final FileStructure fileStructure) {
-        return fileStructureCrudRepository.save(fileStructure);
+        return this.fileStructureCrudRepository.save(fileStructure);
     }
 
     @Override
     public void deleteFileStructure(final FileStructure fileStructure) {
-        fileStructureCrudRepository.delete(fileStructure);
+        this.fileStructureCrudRepository.delete(fileStructure);
     }
 
     @Override
     public FileStructure loadFileStructure(final String path) {
-        FileStructure result = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -63,7 +66,7 @@ public class FileSystemApiStoreImpl extends OracleServiceImpl implements FileSys
                 final boolean isDirectory = resultSet.getBoolean(3);
                 final String name = resultSet.getString(4);
                 final String timestamp = resultSet.getString("TIMESTAMP");
-                result = new FileStructure.Builder(findPath, name, ext).isDirectory(isDirectory).withName(name).withTimestamp(timestamp).build();
+                return new FileStructure.Builder(findPath, name, ext).isDirectory(isDirectory).withName(name).withTimestamp(timestamp).build();
             }
             resultSet.close();
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public class FileSystemApiStoreImpl extends OracleServiceImpl implements FileSys
                 }
             }
         }
-        return result;
+        return null;
     }
 
 }
