@@ -30,7 +30,7 @@ http://localhost:8090/findFileStructureOracleById/Users%2Fmarcoguastalli%2Ftemp
 http://localhost:8090/findFileStructureOracleByPath/Users%2Fmarco27%2Ftemp
 http://localhost:8090/findFileStructureOracleByPath/Users%2Fmarcoguastalli%2Ftemp
 
-##### GET(!) saveFileStructureOracle
+##### POST saveFileStructureOracle
 http://localhost:8090/saveFileStructureOracle/Users%2Fmarco27%2Ftemp
 http://localhost:8090/saveFileStructureOracle/Users%2Fmarcoguastalli%2Ftemp
 
