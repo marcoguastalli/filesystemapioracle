@@ -80,7 +80,7 @@ public class FileSystemApiController {
         return ResponseEntity.ok(new JsonSuccess(String.format("path not found %s", path)));
     }
 
-    @GetMapping("/saveFileStructureOracle/{path}")
+    @PostMapping("/saveFileStructureOracle/{path}")
     public ResponseEntity<FileStructure> saveFileStructureOracle(@Valid @PathVariable final String path) {
         final String validPath = validatePath(path);
         FileStructure result = fileSystemApiStore.findFileStructureById(validatePath(validPath));
